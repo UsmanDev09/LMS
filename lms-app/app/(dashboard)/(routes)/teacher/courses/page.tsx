@@ -1,5 +1,18 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 const CoursesPage = () => {
-  return <div>This is Courses Page</div>;
+  return (
+    <div className="p-6">
+      <Link href="/teacher/create">
+        <Button variant="default" size="lg">
+          Create Course
+        </Button>
+      </Link>
+    </div>
+  );
 };
 
 export default CoursesPage;
