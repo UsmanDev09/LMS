@@ -7,7 +7,7 @@ const Logo = () => {
       height={130}
       width={130}
       alt="logo"
-      src="/logo.svg"
+      src="/next.svg"
     />
   );
 };
