@@ -15,7 +15,7 @@ export const POST = async (req: Request) => {
     }
     const course = await db.course.create({
       data: {
-        userId: userId!,
+        userId,
         title,
       },
     });
