@@ -21,6 +21,7 @@ export const POST = async (req: Request) => {
     });
     return NextResponse.json(course);
   } catch (err) {
+    if (err instanceof Error) console.log(err.message);
     console.log("[COURSES]", err);
     return new NextResponse("Inernal Error", { status: 500 });
   }
