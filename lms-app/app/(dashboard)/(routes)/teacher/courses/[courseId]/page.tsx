@@ -5,9 +5,16 @@ import DescriptionForm from "./_components/description-form";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
-import { LayoutDashboard } from "lucide-react";
+import {
+  CheckCheckIcon,
+  CircleDollarSignIcon,
+  DollarSign,
+  LayoutDashboard,
+  ListChecks,
+} from "lucide-react";
 import ImageForm from "./_components/image-form";
 import CategoryForm from "./_components/categories-form";
+import PriceForm from "./_components/price-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -71,6 +78,17 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               value: categories.id,
             }))}
           />
+        </div>
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={ListChecks} />
+              <h2 className="text-xl">Course Chapters</h2>
+            </div>
+            Chapter Progress
+          </div>
+          <PriceForm initialData={course} courseId={course.id} />
+          <div></div>
         </div>
       </div>
     </div>
