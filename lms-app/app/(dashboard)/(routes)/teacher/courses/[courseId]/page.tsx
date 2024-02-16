@@ -5,8 +5,9 @@ import DescriptionForm from "./_components/description-form";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
-import { LayoutDashboard, LayoutDashboardIcon } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import ImageForm from "./_components/image-form";
+import CategoryForm from "./_components/categories-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -18,6 +19,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+    },
+  });
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
     },
   });
 
@@ -57,6 +63,14 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           <TitleForm initialData={course} courseId={course.id} />
           <DescriptionForm initialData={course} courseId={course.id} />
           <ImageForm initialData={course} courseId={course.id} />
+          <CategoryForm
+            initialData={course}
+            courseId={course.id}
+            options={categories.map((categories) => ({
+              label: categories.name,
+              value: categories.id,
+            }))}
+          />
         </div>
       </div>
     </div>

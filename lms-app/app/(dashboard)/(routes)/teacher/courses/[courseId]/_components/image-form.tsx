@@ -34,7 +34,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { imageUrl: initialData?.imageUrl || " " },
+    defaultValues: { imageUrl: initialData?.imageUrl || "" },
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
