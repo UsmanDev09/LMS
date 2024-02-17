@@ -40,11 +40,11 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Course updated");
+      toast.success("Image Uploaded");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Something Went Wrong");
     }
   };
 
@@ -73,11 +73,11 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
       </div>
       {!isEditing &&
         (!initialData.imageUrl ? (
-          <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md mt-2">
+          <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md mt-3">
             <ImageIcon className="h-10 w-10 text-slate-500  " />
           </div>
         ) : (
-          <div className="relative aspect-video mt-2">
+          <div className="relative aspect-video mt-3">
             <Image
               className="object-cover rounded-md"
               alt="Upload Image"
