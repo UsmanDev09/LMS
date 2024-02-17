@@ -18,6 +18,7 @@ import ImageForm from "./_components/image-form";
 import CategoryForm from "./_components/categories-form";
 import PriceForm from "./_components/price-form";
 import AttachmentForm from "./_components/attachment-form";
+import ChapterForm from "./_components/chapter-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
@@ -36,6 +37,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           createdAt: "desc",
         },
       },
+      // chapters: {
+      //   orderBy: {
+      //     position: "asc",
+      //   },
+      // },
     },
   });
   const categories = await db.category.findMany({
@@ -54,6 +60,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.imageUrl,
     course.price,
     course.categoryId,
+    course.chapters,
   ];
 
   const totalFields = requiedFields.length;
@@ -95,7 +102,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
               <IconBadge icon={ListChecks} />
               <h2 className="text-xl">Course Chapters</h2>
             </div>
-            Chapter Progress
+            <ChapterForm initialData={course} courseId={course.id} />
           </div>
           <div className="flex items-center gap-x-2 ">
             <IconBadge icon={CircleDollarSignIcon} />

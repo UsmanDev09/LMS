@@ -9,6 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Chapter, Course } from "@prisma/client";
 
 import {
   Form,
@@ -20,23 +21,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-interface DescriptionFormProps {
-  initialData: {
-    description: string | null;
-  };
+interface ChapterFormProps {
+  initialData: Course & { chapters: Chapter[] };
   courseId: string;
 }
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Cannot Submit Empty",
-  }),
+  chapters: z.string().min(1),
 });
 
-export const DescriptionForm = ({
-  initialData,
-  courseId,
-}: DescriptionFormProps) => {
+export const ChapterForm = ({ initialData, courseId }: ChapterFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
@@ -45,7 +39,7 @@ export const DescriptionForm = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { description: initialData?.description || "" },
+    defaultValues: { chapters: initialData?.chapters || "" },
   });
 
   const { isSubmitting, isValid } = form.formState;
@@ -53,7 +47,7 @@ export const DescriptionForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Description Updated");
+      toast.success("Chapter Updated");
       toggleEdit();
       router.refresh();
     } catch {
@@ -64,7 +58,7 @@ export const DescriptionForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Course Chapters
         <Button
           onClick={toggleEdit}
           variant="outline"
@@ -75,7 +69,7 @@ export const DescriptionForm = ({
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit Description
+              Edit Chapter
             </>
           )}
         </Button>
@@ -84,10 +78,10 @@ export const DescriptionForm = ({
         <p
           className={cn(
             "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
+            !initialData.chapters && "text-slate-500 italic"
           )}
         >
-          {initialData.description || "No Description"}
+          {initialData.chapters || "No Chapter"}
         </p>
       )}
       {isEditing && (
@@ -98,7 +92,7 @@ export const DescriptionForm = ({
           >
             <FormField
               control={form.control}
-              name="description"
+              name="chapters"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -123,4 +117,4 @@ export const DescriptionForm = ({
     </div>
   );
 };
-export default DescriptionForm;
+export default ChapterForm;
