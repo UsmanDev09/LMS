@@ -20,7 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-interface DescriptionProps {
+interface DescriptionFormProps {
   initialData: {
     description: string | null;
   };
@@ -36,7 +36,7 @@ const formSchema = z.object({
 export const DescriptionForm = ({
   initialData,
   courseId,
-}: DescriptionProps) => {
+}: DescriptionFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => setIsEditing((current) => !current);
