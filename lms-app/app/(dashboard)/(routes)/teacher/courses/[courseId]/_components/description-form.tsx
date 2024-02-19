@@ -18,7 +18,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Preview } from "@/components/preview";
+import { Editor } from "@/components/editor";
 
 interface DescriptionFormProps {
   initialData: {
@@ -87,7 +88,10 @@ export const DescriptionForm = ({
             !initialData.description && "text-slate-500 italic"
           )}
         >
-          {initialData.description || "No Description"}
+          {!initialData.description && "No Description"}
+          {initialData.description && (
+            <Preview value={initialData.description} />
+          )}
         </p>
       )}
       {isEditing && (
@@ -102,11 +106,7 @@ export const DescriptionForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      disabled={isSubmitting}
-                      placeholder="e.g. 'This Course is About'"
-                      {...field}
-                    />
+                    <Editor {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
