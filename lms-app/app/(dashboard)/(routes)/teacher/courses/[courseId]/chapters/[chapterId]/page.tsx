@@ -1,22 +1,24 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import TitlePageForm from "./_components/chapter-title-form";
+import TitleForm from "./_components/chapter-title-form";
 import DescriptionPageForm from "./_components/chapter-description-form";
 import VideoPageForm from "./_components/chapter-video-form";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
 import {
+  ArrowLeft,
   CircleDollarSignIcon,
   File,
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";
+import Link from "next/link";
 
 const ChaptersIdPage = async ({
   params,
 }: {
-  params: { chaptersId: string };
+  params: { chapterId: string; courseId: string };
 }) => {
   const { userId } = auth();
 
@@ -26,24 +28,11 @@ const ChaptersIdPage = async ({
 
   const chapters = await db.chapter.findUnique({
     where: {
-      id: params.chaptersId,
+      id: params.chapterId,
+      courseId: params.courseId,
     },
-    // include: {
-    //   muxData: {
-    //     orderBy: {
-    //       createdAt: "asc",
-    //     },
-    //   },
-    //   attachments: {
-    //     orderBy: {
-    //       createdAt: "desc",
-    //     },
-    //   },
-    // },
-  });
-  const categories = await db.category.findMany({
-    orderBy: {
-      name: "asc",
+    include: {
+      muxData: true,
     },
   });
 
@@ -68,8 +57,19 @@ const ChaptersIdPage = async ({
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
+        <div className=" w-full">
+          <Link
+            className="flex items-center text-sm hover:opacity-75 transition mb-6"
+            href={`/teacher/courses/${params.courseId}`}
+          >
+            <ArrowLeft className="h-5 w-5 mr-3" />
+            Back to Course modification
+          </Link>
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
         <div className=" flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">chapters Setup</h1>
+          <h1 className="text-2xl font-medium">Chapters Setup</h1>
           <span className="text-sm text-slate-700">
             Completed Fields {totalCompletedFields}
           </span>
@@ -81,12 +81,21 @@ const ChaptersIdPage = async ({
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customize your chapters</h2>
           </div>
-          <TitlePageForm initialData={chapters} chaptersId={chapters.id} />
+          <TitleForm
+            initialData={chapters}
+            chapterId={params.chapterId}
+            courseId={params.courseId}
+          />
           <DescriptionPageForm
             initialData={chapters}
-            chaptersId={chapters.id}
+            chapterId={params.chapterId}
+            courseId={params.courseId}
           />
-          <VideoPageForm initialData={chapters} chaptersId={chapters.id} />
+          <VideoPageForm
+            initialData={chapters}
+            chaptersId={chapters.id}
+            courseId={params.courseId}
+          />
         </div>
       </div>
     </div>
