@@ -4,7 +4,7 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Loader2, PlusCircle } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -90,12 +90,12 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
       )}
       <div className="font-medium flex items-center justify-between">
         Course Chapters
-        <Button onClick={toggleCreating} variant="ghost">
+        <Button onClick={toggleCreating} variant="outline">
           {isCreating ? (
             <>Cancel</>
           ) : (
             <>
-              <PlusCircle className="h-4 w-4 mr-2" />
+              <Plus className="h-4 w-4 mr-2" />
               Add a chapter
             </>
           )}
