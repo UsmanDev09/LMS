@@ -15,6 +15,8 @@ import {
   Video,
 } from "lucide-react";
 import Link from "next/link";
+import { Banner } from "@/components/banner";
+import ChapterAction from "./_components/chapter-action";
 
 const ChaptersIdPage = async ({
   params,
@@ -45,8 +47,6 @@ const ChaptersIdPage = async ({
     chapters.title,
     chapters.description,
     chapters.videoUrl,
-    chapters.position,
-    chapters.isPublished,
     chapters.isFree,
   ];
 
@@ -54,74 +54,84 @@ const ChaptersIdPage = async ({
   const completedFields = requiedFields.filter(Boolean).length;
 
   const totalCompletedFields = `(${completedFields}/${totalFields})`;
+  const isComplteted = requiedFields.every(Boolean);
 
   return (
-    <div className="p-6">
-      <div className="flex items-center justify-between">
-        <div className=" w-full">
-          <Link
-            className="flex items-center text-sm hover:opacity-75 transition mb-6"
-            href={`/teacher/courses/${params.courseId}`}
-          >
-            <ArrowLeft className="h-5 w-5 mr-3" />
-            Back to Course modification
-          </Link>
-        </div>
-      </div>
-      <div className="flex items-center justify-between">
-        <div className=" flex flex-col gap-y-2">
-          <h1 className="text-2xl font-medium">Chapters Setup</h1>
-          <span className="text-sm text-slate-700">
-            Completed Fields {totalCompletedFields}
-          </span>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <div>
-          <div className="flex items-center gap-x-2">
-            <IconBadge icon={LayoutDashboard} />
-            <h2 className="text-xl">Customize your chapters</h2>
+    <>
+      {!chapters.isPublished && (
+        <Banner
+          variant="warning"
+          label="This Chapter is Unpublish. It will not be visible in the Course"
+        />
+      )}
+      <div className="p-6">
+        <div className="flex items-center justify-between">
+          <div className=" w-full">
+            <Link
+              className="flex items-center text-sm hover:opacity-75 transition mb-6"
+              href={`/teacher/courses/${params.courseId}`}
+            >
+              <ArrowLeft className="h-5 w-5 mr-3" />
+              Back to Course modification
+            </Link>
           </div>
-          <TitleForm
-            initialData={chapters}
+        </div>
+        <div className="flex items-center justify-between">
+          <div className=" flex flex-col gap-y-2">
+            <h1 className="text-2xl font-medium">Chapters Setup</h1>
+            <span className="text-sm text-slate-700">
+              Completed Fields {totalCompletedFields}
+            </span>
+          </div>
+          <ChapterAction
+            disabled={!isComplteted}
             chapterId={params.chapterId}
             courseId={params.courseId}
+            isPublished={chapters.isPublished}
           />
-          <DescriptionPageForm
-            initialData={chapters}
-            chapterId={params.chapterId}
-            courseId={params.courseId}
-          />
-          {/* <VideoPageForm
-            initialData={chapters}
-            chaptersId={chapters.id}
-            courseId={params.courseId}
-          /> */}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
           <div>
-            <div className="flex items-center gap-x-2 mt-6">
-              <IconBadge icon={Eye} />
-              <h2 className="text-xl">Chapter Access</h2>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={LayoutDashboard} />
+              <h2 className="text-xl">Customize your Chapters</h2>
             </div>
-            <AccessForm
+            <TitleForm
+              initialData={chapters}
+              chapterId={params.chapterId}
+              courseId={params.courseId}
+            />
+            <DescriptionPageForm
+              initialData={chapters}
+              chapterId={params.chapterId}
+              courseId={params.courseId}
+            />
+            <div>
+              <div className="flex items-center gap-x-2 mt-6">
+                <IconBadge icon={Eye} />
+                <h2 className="text-xl">Chapter Access</h2>
+              </div>
+              <AccessForm
+                initialData={chapters}
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+              />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={Video} />
+              <h2 className="text-xl">Chapter Video</h2>
+            </div>
+            <VideoForm
               initialData={chapters}
               courseId={params.courseId}
               chapterId={params.chapterId}
             />
           </div>
         </div>
-        <div>
-          <div className="flex items-center gap-x-2">
-            <IconBadge icon={Video} />
-            <h2 className="text-xl">Chapter Video</h2>
-          </div>
-          <VideoForm
-            initialData={chapters}
-            courseId={params.courseId}
-            chapterId={params.chapterId}
-          />
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 
