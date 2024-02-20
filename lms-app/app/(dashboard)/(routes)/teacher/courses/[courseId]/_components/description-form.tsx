@@ -18,8 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Preview } from "@/components/preview";
-import { Editor } from "@/components/editor";
+import { Textarea } from "@/components/ui/textarea";
 
 interface DescriptionFormProps {
   initialData: {
@@ -90,7 +89,8 @@ export const DescriptionForm = ({
         >
           {!initialData.description && "No Description"}
           {initialData.description && (
-            <Preview value={initialData.description} />
+            <>{initialData.description}</>
+            // <Preview value={initialData.description} />
           )}
         </p>
       )}
@@ -105,9 +105,7 @@ export const DescriptionForm = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormControl>
-                    <Editor {...field} />
-                  </FormControl>
+                  <Textarea {...field} />
                   <FormMessage />
                 </FormItem>
               )}
