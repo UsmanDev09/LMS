@@ -19,8 +19,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Editor } from "@/components/editor";
-import { Preview } from "@/components/preview";
+// import { Editor } from "@/components/editor";
+// import { Preview } from "@/components/preview";
 import { Chapter } from "@prisma/client";
 import { Checkbox } from "@/components/ui/checkbox";
 
