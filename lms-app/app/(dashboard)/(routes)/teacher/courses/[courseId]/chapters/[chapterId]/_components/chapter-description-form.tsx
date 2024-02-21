@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Editor } from "@/components/editor";
-import { Preview } from "@/components/preview";
+// import { Editor } from "@/components/editor";
+// import { Preview } from "@/components/preview";
 
 interface DescriptionFormProps {
   initialData: {
@@ -71,7 +71,7 @@ export const DescriptionForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Chapter Description
         <Button
           onClick={toggleEdit}
           variant="outline"
@@ -95,9 +95,7 @@ export const DescriptionForm = ({
           )}
         >
           {!initialData.description && "No Description"}
-          {initialData.description && (
-            <Preview value={initialData.description} />
-          )}
+          {initialData.description && <>{initialData.description}</>}
         </p>
       )}
       {isEditing && (
@@ -112,7 +110,7 @@ export const DescriptionForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Editor {...field} />
+                    <Textarea {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
