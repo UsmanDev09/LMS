@@ -47,7 +47,6 @@ const ChaptersIdPage = async ({
     chapters.title,
     chapters.description,
     chapters.videoUrl,
-    chapters.isFree,
   ];
 
   const totalFields = requiedFields.length;
