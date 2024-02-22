@@ -11,7 +11,6 @@ import {
   ArrowLeft,
   Eye,
   LayoutDashboard,
-  ListChecks,
   Video,
 } from "lucide-react";
 import Link from "next/link";

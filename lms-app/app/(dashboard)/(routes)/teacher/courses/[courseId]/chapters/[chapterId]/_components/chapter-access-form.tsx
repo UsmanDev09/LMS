@@ -58,7 +58,7 @@ export const AccessForm = ({
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
-      toast.success("Description Updated");
+      toast.success("Chapter Updated");
       toggleEdit();
       router.refresh();
     } catch {

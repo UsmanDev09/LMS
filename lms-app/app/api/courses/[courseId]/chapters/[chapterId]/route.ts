@@ -140,7 +140,7 @@ export async function PATCH(
       }
 
       const asset = await mux.video.assets.create({
-        input: values.videoUrl,
+        input: [{url:values.videoUrl}],
         playback_policy: ["public"],
         test: false,
       });
