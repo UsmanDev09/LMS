@@ -1,3 +1,4 @@
+"use client";
 import { Category } from "@prisma/client";
 import {
   FcEngineering,
@@ -25,7 +26,7 @@ const iconMap: Record<Category["name"], IconType> = {
 
 const Categories = ({ items }: CategoryProps) => {
   return (
-    <div className="flex items-center gap-x-2 overflow-x-auto pb-2 justify-evenly">
+    <div className="flex items-center gap-x-24 overflow-x-auto pb-2 justify-center">
       {items.map((item) => (
         <CategoryItem
           key={item.id}
