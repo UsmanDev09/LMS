@@ -14,7 +14,7 @@ type GetCourses = {
   categoryId?: string;
 };
 
-const getResponse = ({ userId, title, categoryId }: GetCourses) => {
+const getResponse = async ({ userId, title, categoryId }: GetCourses) => {
   try {
     const courses = db.course.findMany({
       where: {
