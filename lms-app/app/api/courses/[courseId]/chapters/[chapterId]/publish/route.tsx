@@ -32,15 +32,15 @@ export async function PATCH(
       },
     });
 
-    const muxData = await db.muxData.findUnique({
-      where: {
-        chapterId: params.chapterId,
-      },
-    });
+    // const muxData = await db.muxData.findUnique({
+    //   where: {
+    //     chapterId: params.chapterId,
+    //   },
+    // });
 
     if (
       !chapter ||
-      !muxData ||
+      // !muxData ||
       !chapter.title ||
       !chapter.description ||
       !chapter.videoUrl

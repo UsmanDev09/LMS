@@ -7,12 +7,7 @@ import AccessForm from "./_components/chapter-access-form";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
-import {
-  ArrowLeft,
-  Eye,
-  LayoutDashboard,
-  Video,
-} from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
 import { Banner } from "@/components/banner";
 import ChapterAction from "./_components/chapter-action";
@@ -33,9 +28,9 @@ const ChaptersIdPage = async ({
       id: params.chapterId,
       courseId: params.courseId,
     },
-    include: {
-      muxData: true,
-    },
+    // include: {
+    //   muxData: true,
+    // },
   });
 
   if (!chapters) {
