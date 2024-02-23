@@ -10,7 +10,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Chapter, MuxData } from "@prisma/client";
 
-import MuxPlayer from "@mux/mux-player-react";
+// import MuxPlayer from "@mux/mux-player-react";
+import VideoPlayer from "@/components/video-player";
 
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/file-upload";
@@ -84,12 +85,13 @@ export const VideoForm = ({
             <VideoIcon className="h-10 w-10 text-slate-500  " />
           </div>
         ) : (
-          <div className="relative aspect-video mt-3">
-            <MuxPlayer
+          <div className="relative aspect-video mt-3 flex justify-center ">
+            {/* <MuxPlayer
               streamType="on-demand"
               playbackId={initialData?.muxData?.playbackId || ""}
               accentColor="#ac39f2"
-            />
+            /> */}
+            <VideoPlayer videoUrl={initialData.videoUrl} />
           </div>
         ))}
       {isEditing && (
