@@ -8,9 +8,6 @@ import { IconBadge } from "@/components/icon-badge";
 import {
   CircleDollarSignIcon,
   File,
-  FileBox,
-  FileEdit,
-  FileUp,
   LayoutDashboard,
   ListChecks,
 } from "lucide-react";
@@ -19,7 +16,6 @@ import CategoryForm from "./_components/categories-form";
 import PriceForm from "./_components/price-form";
 import AttachmentForm from "./_components/attachment-form";
 import ChapterForm from "./_components/chapter-form";
-import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Banner } from "@/components/banner";
 import CourseAction from "./_components/course-action";
 
