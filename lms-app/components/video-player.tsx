@@ -4,18 +4,29 @@ import ReactPlayer from "react-player";
 
 interface VideoPlayerProps {
   videoUrl: string;
+  title?: string;
+  onCanPlay?: () => void;
+  onEnded?: () => void;
 }
 
-const VideoPlayer = ({ videoUrl }: VideoPlayerProps) => {
+const VideoPlayer = ({
+  videoUrl,
+  title,
+  onCanPlay,
+  onEnded,
+}: VideoPlayerProps) => {
   //video path
   //   let videoUrl = "/videos/next.mp4";
 
   return (
     <div>
       <ReactPlayer
-        width="720px"
-        height="410px"
+        width="100%"
+        height="100%"
         url={videoUrl}
+        title={title}
+        onCanplay={onCanPlay}
+        onEnded={onEnded}
         controls={true}
         // light is usefull incase of dark mode
         light={false}
