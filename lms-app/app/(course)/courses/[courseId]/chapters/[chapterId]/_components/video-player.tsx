@@ -61,11 +61,11 @@ export const VideoPlayerPage = ({
 
   return (
     <div className="relative aspect-video">
-      {!isReady && !isLocked && (
+      {/* {!isReady && !isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
           <Loader2 className="h-8 w-8 animate-spin text-secondary" />
         </div>
-      )}
+      )} */}
       {isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
           <Lock className="h-8 w-8" />
@@ -73,12 +73,12 @@ export const VideoPlayerPage = ({
         </div>
       )}
       {!isLocked && (
-        <div className={cn(!isReady && "hidden")}>
+        <div>
           <VideoPlayer
             videoUrl={videoUrl}
             title={title}
-            // onCanPlay={() => setIsReady(true)}
-            // onEnded={onEnd}
+            onCanPlay={() => setIsReady(true)}
+            onEnded={onEnd}
             // autoPlay
           />
         </div>

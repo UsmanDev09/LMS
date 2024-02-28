@@ -1,39 +1,36 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-// import { db } from "@/lib/db";
-import GetChapter from "@/actions/get-chapter";
-import { Banner } from "@/components/banner";
-import { VideoPlayerPage } from "./_components/video-player";
-import { CourseProgressButton } from "./_components/course-progress-button";
-import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { File } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 
-const ChaptersPage = async ({
+import getChapter from "@/actions/get-chapter";
+import { Banner } from "@/components/banner";
+import { Separator } from "@/components/ui/separator";
+// import { Preview } from "@/components/preview";
+
+import { VideoPlayerPage } from "./_components/video-player";
+import { CourseEnrollButton } from "./_components/course-enroll-button";
+import { CourseProgressButton } from "./_components/course-progress-button";
+
+const ChapterIdPage = async ({
   params,
 }: {
   params: { courseId: string; chapterId: string };
 }) => {
   const { userId } = auth();
+
   if (!userId) {
     return redirect("/");
   }
-  const {
-    course,
-    chapter,
-    videoUrl,
-    userProgress,
-    purchase,
-    nextChapter,
-    attachments,
-  } = await GetChapter({
-    userId,
-    courseId: params.courseId,
-    chapterId: params.chapterId,
-  });
+
+  const { chapter, course, attachments, nextChapter, userProgress, purchase } =
+    await getChapter({
+      userId,
+      chapterId: params.chapterId,
+      courseId: params.courseId,
+    });
 
   if (!chapter || !course) {
-    redirect("/");
+    return redirect("/");
   }
 
   const isLocked = !chapter.isFree && !purchase;
@@ -57,9 +54,10 @@ const ChaptersPage = async ({
             title={chapter.title}
             courseId={params.courseId}
             nextChapterId={nextChapter?.id}
+            // playbackId={muxData?.playbackId!}
+            videoUrl={chapter?.videoUrl!}
             isLocked={isLocked}
             completeOnEnd={completeOnEnd}
-            videoUrl={chapter.videoUrl as string}
           />
         </div>
         <div>
@@ -80,10 +78,10 @@ const ChaptersPage = async ({
             )}
           </div>
           <Separator />
-          <div className="ml-4 mt-2">
+          <div className="ml-4 mt-2 text-lg">
             <p>{chapter.description!}</p>
           </div>
-          {!!attachments.length && (
+          {attachments.length >= 1 && (
             <>
               <Separator />
               <div className="p-4">
@@ -107,4 +105,4 @@ const ChaptersPage = async ({
   );
 };
 
-export default ChaptersPage;
+export default ChapterIdPage;
